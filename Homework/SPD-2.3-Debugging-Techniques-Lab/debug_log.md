@@ -15,11 +15,31 @@ _Then I noticed another bug ..._
 
 ## Exercise 1
 
-[[Your answer goes here!]]
+Bugs:
+
+Naming of varible not the same when using in PizzaTopping. Inorder to use a property
+the naming must be the same
+
+The rerfriect url_for route uses redirect(url_for('/')) instead of redirect(url_for('home'))
+
+Had to change the form.get() names because didn't match with the form in template
+
+Had to had the db.session.commit(), missing to save to db
+
+Change get to getList when want multiple items from form for the toppings_list
+
+Change the loop to toppings_list instead of PizzaTopping.
+
 
 ## Exercise 2
 
-[[Your answer goes here!]]
+Change the request.args.get to match the template's names. 
+
+Change the url route to ave an added "?"
+
+Change the parameter naming to "q" instead of city name
+
+Change context dictionary temp to be "temp" instead of "temperature"
 
 ## Exercise 3
 
