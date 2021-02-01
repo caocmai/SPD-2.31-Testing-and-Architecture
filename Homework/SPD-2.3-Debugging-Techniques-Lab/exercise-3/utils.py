@@ -34,8 +34,10 @@ def merge_sort(arr):
         i += 1
 
     while j < len(right_side):
-        arr[k] = right_side[i]
+        arr[k] = right_side[j]
         j += 1
+
+
 
 def binary_search(arr, elem):
     """Return the index of the given element within a sorted array."""
