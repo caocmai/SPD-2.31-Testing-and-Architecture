@@ -16,31 +16,49 @@ _Then I noticed another bug ..._
 ## Exercise 1
 
 Bugs:
+I noticed that the naming of variable were not the same when using in PizzaTopping. Inorder to use a property the naming must be the same
 
-Naming of varible not the same when using in PizzaTopping. Inorder to use a property
-the naming must be the same
+I noticed a routing error when saving it was about routing.
+The redirect url_for route uses redirect(url_for('/')) instead of redirect(url_for('home'))
 
-The rerfriect url_for route uses redirect(url_for('/')) instead of redirect(url_for('home'))
+Since testing out the program it looked like none of the form data was saved I noticed
+that the form.get() naming does not match those assigned within the template so 
+I had to change the form.get() names because didn't match with the form in template
 
-Had to change the form.get() names because didn't match with the form in template
+I noticed that the pattern to save things to the db we needed db.session.commit(),
+it was missing and which is why nothing was saved so I just add that.
 
-Had to had the db.session.commit(), missing to save to db
+The bug now is it is not showing the specific pizza toppings that I picked and 
+just shows all of the toppings I went online to find of a way to get multiple parameters
+within a form. I found that I need to change get to getList when want multiple items from form for the toppings_list
 
-Change get to getList when want multiple items from form for the toppings_list
-
-Change the loop to toppings_list instead of PizzaTopping.
+I also noticed that the loop to add the toppings is not to the toppings the user has
+chosen but to all of them, so I hange the loop to toppings_list instead of PizzaTopping.
 
 
 ## Exercise 2
 
-Change the request.args.get to match the template's names. 
+I noticed that the request.args.get() naming is not the same as on the names on the 
+templates so I change the request.args.get to match the template's names. 
 
-Change the url route to ave an added "?"
+While looking at the OpenMapweatherAPI documentation on how to perform API calls 
+I noticed that our base URL was mising a "?" so I change the url route to ave an added "?"
 
-Change the parameter naming to "q" instead of city name
+Again while looking at the documentation I noticed that the parameter naming for the 
+city is "q" instead of city name so I changed that to "q"
 
-Change context dictionary temp to be "temp" instead of "temperature"
+The error I got was when parsing throught the JSON I got from making the API call
+and noticed that in the JSON the format for the temperature is labeled as "temp"
+and not as "temperature"
 
 ## Exercise 3
 
-[[Your answer goes here!]]
+The bug was that the index was out of range so after looking at the code I noticed
+that I am not assgining it to the correct index. 
+To fix I change the merge sort function while loop of `while j < len(right_side):` to 
+`arr[k] = right_side[j]` instead of `i`
+
+For the second bug I found that mid was expecting an integer instead of a float 
+so I just added a floor `//` divisor to get the mid.
+
+
