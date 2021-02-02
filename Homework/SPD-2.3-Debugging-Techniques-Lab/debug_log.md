@@ -15,7 +15,9 @@ _Then I noticed another bug ..._
 
 ## Exercise 1
 
-Bugs:
+The expected output for the program is to be able to create a pizza order and have it displayed. 
+The acutal output was a bunch of errors and bugs discussed below:
+
 I noticed that the naming of variable were not the same when using in PizzaTopping. Inorder to use a property the naming must be the same
 
 I noticed a routing error when saving it was about routing.
@@ -38,6 +40,10 @@ chosen but to all of them, so I hange the loop to toppings_list instead of Pizza
 
 ## Exercise 2
 
+The expected ouput for this program is to enter in a city name and get its weather 
+information. The actual output is getting an internal system error and lots of other bugs
+discussed and sloved below:
+
 I noticed that the request.args.get() naming is not the same as on the names on the 
 templates so I change the request.args.get to match the template's names. 
 
@@ -53,6 +59,12 @@ and not as "temperature"
 
 ## Exercise 3
 
+The expect output for this program is to return a sorted array using merge sort
+to sort an array or using binary search to search for a number but the actual output
+is an error about index, and the other error is the binary search mid is needing an
+integer instead of a float. Actual bug below
+
+
 The bug was that the index was out of range so after looking at the code I noticed
 that I am not assgining it to the correct index. 
 To fix I change the merge sort function while loop of `while j < len(right_side):` to 
@@ -62,3 +74,5 @@ For the second bug I found that mid was expecting an integer instead of a float
 so I just added a floor `//` divisor to get the mid.
 
 
+## GitHub Link To Exercises With All Bugs Fixed
+https://github.com/caocmai/SPD-2.31-Testing-and-Architecture/tree/main/Homework/SPD-2.3-Debugging-Techniques-Lab
