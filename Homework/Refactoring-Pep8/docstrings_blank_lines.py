@@ -28,7 +28,7 @@ class CarbonMonoxideSensor:
 class DisplayUnit:
     def __init__(self):
         self.string = ''
-    def display(self,msg):
+    def display(self, msg):
         print(msg)
 class CarbonMonoxideDevice():
     def __init__(self, co_sensor, display_unit):

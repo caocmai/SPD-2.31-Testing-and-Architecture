@@ -1,32 +1,35 @@
 # By Kami Bigdely
 # PEP8 - whitespaces and variable names.
 class Pizza:
-    def __init__ (self, mybread_type,CHEESE_TYPE,meatType,pizza_toppings,size):
-        self.bread_type= mybread_type
-        self.cheese_type = CHEESE_TYPE
-        self.meatType= meatType
+    def __init__(self, mybread_type, cheese_type, meat_type, pizza_toppings, size):
+        self.bread_type = mybread_type
+        self.cheese_type = cheese_type
+        self.meat_type = meat_type
         self.toppings = pizza_toppings
-        self.size = size        
+        self.size = size    
+
     @classmethod
-    def Create_ChicagoPizza (cls, size):
+    def create_chicago_pizza(cls, size):
         bread = 'deep-dish bread'
         cheese = 'mozzarella cheese'
-        meatType= 'Italian sausage'
-        toppings = ['green bell pepper','mushroom', 'chunky tomato sauce', 'onion']
-        return cls(bread, cheese, meatType, toppings, size)    
+        meat_type = 'Italian sausage'
+        toppings = ['green bell pepper', 'mushroom', 'chunky tomato sauce', 'onion']
+        return cls(bread, cheese, meat_type, toppings, size)    
+    
     @classmethod
-    def createCalifornia_pizza(cls, meat_Type,size): #ct = classtype
+    def create_california_pizza(cls, meat_type, size): #ct = classtype
         bread = 'thin crust'
-        CHEESE = 'feta cheese'
-        toppings =[ 'garlic', 'spinach', 'broccoli', 'olives', 'red onion', 'red bell pepper' ]
-        return cls(bread, CHEESE, meat_Type, toppings, size) 
-    def printInfo(self):
+        cheese = 'feta cheese'
+        toppings = ['garlic', 'spinach', 'broccoli', 'olives', 'red onion', 'red bell pepper']
+        return cls(bread, cheese, meat_type, toppings, size) 
+
+    def print_info(self):
         print('bread type is: ', self.bread_type)
         print('cheese type is: ', self.cheese_type)
-        print('meat type is: ', self.meatType)
+        print('meat type is: ', self.meat_type)
         print('Toppings are: ', end='')
         print(', '.join(map(str, self.toppings)))
 
     
-myPizza = pizza.createCalifornia_pizza('chicken', 'large')
-myPizza.printInfo()
+my_pizza = Pizza.create_california_pizza('chicken', 'large')
+my_pizza.printInfo()
