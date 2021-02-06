@@ -15,8 +15,6 @@ def enter_night_club(individual):
         print("Enterance of minors is denited.")
         return False
 
-    
-    
 person = Person(17.9)
 enter_night_club(person)
         
