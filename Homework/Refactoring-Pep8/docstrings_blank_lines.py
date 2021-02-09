@@ -34,7 +34,7 @@ class CarbonMonoxideSensor:
             The carbon monoxide level.
         """
         sensor_voltage = self.read_sensor_voltage()
-        self.carbon_monoxide = CarbonMonoxideSensor.convert_volt_to_co2_lvl(sensor_voltage, 
+        self.carbon_monoxide = CarbonMonoxideSensor.convert_volt_to_co2_lvl(self, sensor_voltage, 
                                                                             self.on_board_temp_sensor.get_temperature())
         return self.carbon_monoxide
 

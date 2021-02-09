@@ -32,4 +32,4 @@ class Pizza:
 
     
 my_pizza = Pizza.create_california_pizza('chicken', 'large')
-my_pizza.printInfo()
+my_pizza.print_info()
