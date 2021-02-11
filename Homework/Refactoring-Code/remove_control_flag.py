@@ -1,16 +1,11 @@
 # by Kami Bigdely
 # Remove control flag
 def find_food(food, fridge):
-    found = False
     for item in fridge:
         if food in item:
-            found = True
-            item_name = item
-            break
-    if found:
-        return item_name
-    else:
-        return None
+            return food
+    return None
+
 
 if __name__ == "__main__":
     food = 'wesabi'
