@@ -13,7 +13,7 @@ class Enemy:
 class AngryMushroom(Enemy):
     
     def __init__(self):
-        pass
+        super().__init__()
     
     def spread_poison(self):
         print('spreading poison!')

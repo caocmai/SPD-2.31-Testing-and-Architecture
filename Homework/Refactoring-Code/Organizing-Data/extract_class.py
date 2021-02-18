@@ -10,10 +10,10 @@ class FoodDish:
         self.food_type = food_type
         self.instructions = instructions
         self.food_origin = food_origin
-        self.ingredients = []
+        self.ingredients = ingredients
 
-        for ingredient in ingredients:
-            self.ingredients.append(ingredient)
+        # for ingredient in ingredients:
+        #     self.ingredients.append(ingredient)
     
 
 foodList = [FoodDish("butter squash soup", 45, True, "soup", "North African",  ['butter squash','onion','carrot', 'garlic','butter','black pepper', 'cinnamon','coconut milk'], '1. Grill the butter squash, onion, carrot and garlic in the oven until'
