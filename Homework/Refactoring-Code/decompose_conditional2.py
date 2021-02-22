@@ -7,15 +7,30 @@ total_cholostrol = 70
 ldl = 30
 triglyceride = 120
 
-if total_cholostrol < 200 and ldl < 100 and triglyceride < 150:
+def good(total_cholostrol, ldl, triglyceride):
+    if total_cholostrol < 200 and ldl < 100 and triglyceride < 150:
+        return True
+    return False
+
+def ok(total_cholostrol, ldl, triglyceride):
+    if 200 < total_cholostrol > 240 or ldl > 160 or triglyceride >= 200:
+        return True
+    return False
+
+def bad(total_cholostrol, ldl, triglyceride):
+    if 200 <total_cholostrol < 240 or 130 < ldl < 160 or 150 <= triglyceride < 200:
+        return True
+    return False
+
+if good(total_cholostrol, ldl, triglyceride):
     # good level
     print('*** Good level of cholestrol ***')
-elif 200 < total_cholostrol > 240 or ldl > 160 or triglyceride >= 200:
+elif ok(total_cholostrol, ldl, triglyceride):
     # High cholestrol level
     print('*** High cholestrol level ***')
     print('start taking pills such as statins')
     print('start TLC diet')
-elif 200 <total_cholostrol < 240 or 130 < ldl < 160 or 150 <= triglyceride < 200:
+elif bad(total_cholostrol, ldl, triglyceride):
     #TLC_diet
     print('*** Borderline to moderately elevated ***')
     print("Start TLC diet")
@@ -25,3 +40,4 @@ elif 200 <total_cholostrol < 240 or 130 < ldl < 160 or 150 <= triglyceride < 200
     print('fruits such as apples, pears, bananas, and oranges.')
 else:
     print('Error: unhandled case.')
+
