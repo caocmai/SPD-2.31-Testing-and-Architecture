@@ -95,7 +95,6 @@ class StatisticsDisplay(Observer):
         self.weatherData = weatherData
         weatherData.registerObserver(self)
 
-    # These extra arguments are required but not used why?
     def update(self, temperature):
         self.temperatures.append(temperature)
         self.min = min(self.temperatures)
@@ -105,7 +104,6 @@ class StatisticsDisplay(Observer):
 
     def display(self):
         print("Min: ", self.min, "Max: ", self.max, "Average: ", self.average)
-
 
 
 class ForecastDisplay(Observer):
@@ -132,9 +130,9 @@ class ForecastDisplay(Observer):
 class WeatherStation:
     def main(self):
         weather_data = WeatherData()
-        # current_display = CurrentConditionsDisplay(weather_data)
+        current_display = CurrentConditionsDisplay(weather_data)
         stats_display = StatisticsDisplay(weather_data)
-        # forcast_display = ForecastDisplay(weather_data)
+        forcast_display = ForecastDisplay(weather_data)
         
         # TODO: Create two objects from StatisticsDisplay class and 
         # ForecastDisplay class. Also register them to the concerete instance
@@ -150,14 +148,17 @@ class WeatherStation:
         # forcast_pressure = pressure + 0.1 * temperature - 0.21 * pressure
         
         weather_data.setMeasurements(80, 65,30.4)
+        print()
         weather_data.setMeasurements(82, 70,29.2)
+        print()
+        weather_data.removeObserver(forcast_display)
         weather_data.setMeasurements(78, 90,29.2)
+        print()
         
         # un-register the observer
-        # weather_data.removeObserver(current_display)
+        weather_data.removeObserver(current_display)
         weather_data.setMeasurements(120, 100,1000)
         weather_data.removeObserver(stats_display)
-        # weather_data.removeObserver(forcast_display)
     
         
 
