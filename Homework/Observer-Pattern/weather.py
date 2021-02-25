@@ -44,7 +44,11 @@ class WeatherData(Subject):
         # We notify the observers when we get updated measurements 
         # from the Weather Station.
         for ob in self.observers:
-            ob.update(self.temperature, self.humidity, self.pressure)
+            # Can use this to check if it's that type of object
+            if isinstance(ob, StatisticsDisplay):
+                ob.update(self.temperature)
+            else:
+                ob.update(self.temperature, self.humidity, self.pressure)
     
     def measurementsChanged(self):
         self.notifyObservers()
@@ -92,7 +96,7 @@ class StatisticsDisplay(Observer):
         weatherData.registerObserver(self)
 
     # These extra arguments are required but not used why?
-    def update(self, temperature, humidity, pressure):
+    def update(self, temperature):
         self.temperatures.append(temperature)
         self.min = min(self.temperatures)
         self.max = max(self.temperatures)
@@ -129,8 +133,8 @@ class WeatherStation:
     def main(self):
         weather_data = WeatherData()
         # current_display = CurrentConditionsDisplay(weather_data)
-        # stats_display = StatisticsDisplay(weather_data)
-        forcast_display = ForecastDisplay(weather_data)
+        stats_display = StatisticsDisplay(weather_data)
+        # forcast_display = ForecastDisplay(weather_data)
         
         # TODO: Create two objects from StatisticsDisplay class and 
         # ForecastDisplay class. Also register them to the concerete instance
@@ -152,7 +156,8 @@ class WeatherStation:
         # un-register the observer
         # weather_data.removeObserver(current_display)
         weather_data.setMeasurements(120, 100,1000)
-        weather_data.registerObserver(forcast_display)
+        weather_data.removeObserver(stats_display)
+        # weather_data.removeObserver(forcast_display)
     
         
 
