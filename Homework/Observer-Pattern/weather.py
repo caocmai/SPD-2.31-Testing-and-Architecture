@@ -109,7 +109,7 @@ class ForecastDisplay(Observer):
     def __init__(self, weatherData):
         self.forcast_temp = 0
         self.forcast_humidity = 0
-        self.forcast_pressure = 0
+        self.forecast_pressure = 0
 
         # Registering observer to subject/publisher
         self.weatherData = weatherData
@@ -122,8 +122,8 @@ class ForecastDisplay(Observer):
         self.display()
 
     def display(self):
-        print("Forcast Temp: ", self.forcast_temp, "Forcast Humidity: ", self.forcast_humidity, 
-              "Forcast Pressure: ", self.forcast_pressure)
+        print("Forecast Temp: ", self.forcast_temp, "Forecast Humidity: ", self.forcast_humidity, 
+              "Forecast Pressure: ", self.forcast_pressure)
     
 class WeatherStation:
     def main(self):
@@ -139,7 +139,7 @@ class WeatherStation:
         # The StatisticsDisplay class should keep track of the min/average/max
         # measurements and display them.
         
-        # The ForecastDisplay class shows the weather forcast based on the current
+        # The ForecastDisplay class shows the weather Forecast based on the current
         # temperature, humidity and pressure. Use the following formuals :
         # forcast_temp = temperature + 0.11 * humidity + 0.2 * pressure
         # forcast_humadity = humidity - 0.9 * humidity
