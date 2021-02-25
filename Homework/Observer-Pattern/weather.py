@@ -20,7 +20,7 @@ class Observer:
     def update(self, temp, humidity, pressure):
         pass
 
-# WeatherData now implements the subject interface.
+# WeatherData now implements the subject/publisher interface.
 class WeatherData(Subject):
     
     def __init__(self):        
@@ -111,6 +111,10 @@ class ForecastDisplay(Observer):
         self.forcast_humidity = 0
         self.forcast_pressure = 0
 
+        # Registering observer to subject/publisher
+        self.weatherData = weatherData
+        self.weatherData.registerObserver(self)
+
     def update(self, temperature, humidity, pressure):
         self.forcast_temp = temperature + 0.11 * humidity + 0.2 * pressure
         self.forcast_humidity = humidity - 0.9 * humidity
@@ -125,7 +129,8 @@ class WeatherStation:
     def main(self):
         weather_data = WeatherData()
         # current_display = CurrentConditionsDisplay(weather_data)
-        stats_display = StatisticsDisplay(weather_data)
+        # stats_display = StatisticsDisplay(weather_data)
+        forcast_display = ForecastDisplay(weather_data)
         
         # TODO: Create two objects from StatisticsDisplay class and 
         # ForecastDisplay class. Also register them to the concerete instance
@@ -147,7 +152,7 @@ class WeatherStation:
         # un-register the observer
         # weather_data.removeObserver(current_display)
         weather_data.setMeasurements(120, 100,1000)
-        weather_data.registerObserver(stats_display)
+        weather_data.registerObserver(forcast_display)
     
         
 
