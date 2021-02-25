@@ -45,10 +45,10 @@ class WeatherData(Subject):
         # from the Weather Station.
         for ob in self.observers:
             # Can use this to check if it's that type of object
-            if isinstance(ob, StatisticsDisplay):
-                ob.update(self.temperature)
-            else:
-                ob.update(self.temperature, self.humidity, self.pressure)
+            # if isinstance(ob, StatisticsDisplay):
+            #     ob.update(self.temperature)
+            # else:
+            ob.update(self.temperature, self.humidity, self.pressure)
     
     def measurementsChanged(self):
         self.notifyObservers()
@@ -87,23 +87,32 @@ class CurrentConditionsDisplay(Observer):
 class StatisticsDisplay(Observer):
     
     def __init__(self, weatherData):
-        self.temperatures = []
-        self.min = 0
-        self.max = 0
-        self.average = 0
+        self.info = {
+            "Temp": ("F", []),
+            "Humidity": ("%", []),
+            "Pressure": ("Hg", [])
+        }
 
         self.weatherData = weatherData
         weatherData.registerObserver(self)
 
-    def update(self, temperature):
-        self.temperatures.append(temperature)
-        self.min = min(self.temperatures)
-        self.max = max(self.temperatures)
-        self.average = sum(self.temperatures) / len(self.temperatures)
-        self.display()
+    def update(self, temperature, humidity, pressure):
+        self.info["Temp"][1].append(temperature)
+        self.info["Humidity"][1].append(humidity)
+        self.info["Pressure"][1].append(pressure)
 
-    def display(self):
-        print("Min: ", self.min, "Max: ", self.max, "Average: ", self.average)
+        for k,v in self.info.items():
+            min_value, max_value, average_value = self.min_max_average(v[1])
+            self.display(k, v[0], min_value, max_value, average_value)
+            
+    def min_max_average(self, nums):
+        min_value = min(nums)
+        max_value = max(nums)
+        average = sum(nums) / len(nums)
+        return (min_value, max_value, average)
+
+    def display(self, name, units, min_value, max_value, average):
+        print(f"Min {name}: {min_value}{units}; Max {name}: {max_value}{units}; Average {name}: {average}{units}")
 
 
 class ForecastDisplay(Observer):
@@ -124,8 +133,8 @@ class ForecastDisplay(Observer):
         self.display()
 
     def display(self):
-        print("Forecast Temp: ", self.forcast_temp, "Forecast Humidity: ", self.forcast_humidity, 
-              "Forecast Pressure: ", self.forcast_pressure)
+        print("Forecast Temp: ", self.forcast_temp, "F", "Forecast Humidity: ", self.forcast_humidity, "%", 
+              "Forecast Pressure: ", self.forcast_pressure, "Hg")
     
 class WeatherStation:
     def main(self):
