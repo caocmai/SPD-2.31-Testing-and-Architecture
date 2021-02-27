@@ -3,14 +3,12 @@
 # Reference: https://searchcode.com/file/92870153/frameworkconsole/framework.py/
 
 def backdoor_srcmethod():
-    running = True
     print( "Puts the Android Agent inside an Android App APK. The application runs normally, with extra functionality.")
     
-    while running:
+    while True:
         inputfile = input('APK to Backdoor: ').strip()
         if inputfile == '':
-            running = False
-        else:
-            print('doing other stuff.') 
+            break
+        print('doing other stuff.') 
 
 backdoor_srcmethod()
