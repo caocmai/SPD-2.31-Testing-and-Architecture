@@ -11,8 +11,8 @@ import random
 
 def drawBoard(board):
     """ This function prints out the board that it was passed.
-    Input: 
-        "board" is a list of 10 strings representing the board (ignore index 0). 
+    Inputs: 
+        board - is a list of 10 strings representing the board (ignore index 0). 
     """
     print('   |   |')
     print(' ' + board[7] + ' | ' + board[8] + ' | ' + board[9])
@@ -28,8 +28,8 @@ def drawBoard(board):
 
 def inputPlayerLetter():
     """ Lets the player type which letter they want to be.
-    Returns 
-        a list with the player’s letter as the first item, and the computer's letter as the second. 
+    Returns: 
+        A list with the player’s letter as the first item, and the computer's letter as the second. 
     """
     letter = ''
     while not (letter == 'X' or letter == 'O'):
@@ -50,7 +50,11 @@ def whoGoesFirst():
         return 'player'
 
 def playAgain():
-    # This function returns True if the player wants to play again, otherwise it returns False.
+    """ This function determins whether player wants to replay.
+    Returns:
+        True if players wants to play again.
+        False if player doesn't want to play again.
+    """
     print('Do you want to play again? (yes or no)')
     return input().lower().startswith('y')
 
@@ -58,69 +62,100 @@ def makeMove(board, letter, move):
     board[move] = letter
 
 def isWinner(bo, le):
-    # Given a board and a player’s letter, this function returns True if that player has won.
-    # We use bo instead of board and le instead of letter so we don’t have to type as much.
+    """ Given a board and a player’s letter, this function returns True if that player has won. We use bo instead of board and le instead of letter so we don’t have to type as much.
+    Inputs:
+        bo - the board
+        le - letter
+
+    Returns:
+        True if there's a wining combination.
+        False if there's not a wining combination.
+    """
     return ((bo[7] == le and bo[8] == le and bo[9] == le) or # across the top
-    (bo[4] == le and bo[5] == le and bo[6] == le) or # across the middle    # TODO: Fix the indentation of this lines and the following ones.
-    (bo[1] == le and bo[2] == le and bo[3] == le) or # across the bottom
-    (bo[7] == le and bo[4] == le and bo[1] == le) or # down the left side
-    (bo[8] == le and bo[5] == le and bo[2] == le) or # down the middle
-    (bo[9] == le and bo[6] == le and bo[3] == le) or # down the right side
-    (bo[7] == le and bo[5] == le and bo[3] == le) or # diagonal
-    (bo[9] == le and bo[5] == le and bo[1] == le)) # diagonal
+            (bo[4] == le and bo[5] == le and bo[6] == le) or # across the middle
+            (bo[1] == le and bo[2] == le and bo[3] == le) or # across the bottom
+            (bo[7] == le and bo[4] == le and bo[1] == le) or # down the left side
+            (bo[8] == le and bo[5] == le and bo[2] == le) or # down the middle
+            (bo[9] == le and bo[6] == le and bo[3] == le) or # down the right side
+            (bo[7] == le and bo[5] == le and bo[3] == le) or # diagonal
+            (bo[9] == le and bo[5] == le and bo[1] == le)) # diagonal
 
 def getBoardCopy(board):
-    # Make a duplicate of the board list and return it the duplicate.
-    dupeBoard = []
+    """ Make a duplicate of the board list and return it the duplicate.
+    Inputs:
+        board - the board
 
-    for i in range(0, len(board)): # TODO: Clean this mess!
-        dupeBoard.append(board[i])
+    Returns:
+        A copy of the board.
+    """
 
-    return dupeBoard
+    return board.copy()
 
 def isSpaceFree(board, move):
-    # Return true if the passed move is free on the passed board.
+    """ Checks if there's space to add X or O
+    Inputs:
+        board - the board
+        move - the integer corresponding to the board
+
+    Return:
+        True if the passed move is free on the passed board.
+    """
     return board[move] == ' '
 
 def getPlayerMove(board):
-    # Let the player type in their move.
-    move = ' ' # TODO: W0621: Redefining name 'move' from outer scope. Hint: Fix it according to https://stackoverflow.com/a/25000042/81306
-    while move not in '1 2 3 4 5 6 7 8 9'.split() or not isSpaceFree(board, int(move)):
+    """ Let the player type in their move.
+
+    Returns:
+        The integer of which the player chooses or types in.
+    """
+    inputMove = ' ' 
+    while inputMove not in '1 2 3 4 5 6 7 8 9'.split() or not isSpaceFree(board, int(inputMove)):
         print('What is your next move? (1-9)')
-        move = input()
-    return int(move)
+        inputMove = input()
+    return int(inputMove)
 
 def chooseRandomMoveFromList(board, movesList):
-    # Returns a valid move from the passed list on the passed board.
-    # Returns None if there is no valid move.
+    """ Chooses a random move from a list.
+    Returns:
+        A valid move from the passed list on the passed board.
+        Or None if there is no valid move.
+    """
     possibleMoves = []
     for i in movesList:
         if isSpaceFree(board, i):
             possibleMoves.append(i)
 
-    if len(possibleMoves) != 0: # TODO: How would you write this pythanically? (You can google for it!)
+    if possibleMoves:
         return random.choice(possibleMoves)
-    else: # TODO: is this 'else' necessary?
-        return None
+    # TODO: is this 'else' necessary? - done
+    return None
 
-def getComputerMove(board, computerLetter): # TODO: W0621: Redefining name 'computerLetter' from outer scope. Hint: Fix it according to https://stackoverflow.com/a/25000042/81306
-    # Given a board and the computer's letter, determine where to move and return that move.
-    if computerLetter == 'X':
+def getComputerMove(board, computerAssignedLetter):
+    """ Given a board and the computer's letter, determine where to move and return that move. 
+    Inputs:
+        board - the board
+        computerAssignedLetter - the letter that's assgined to the computer
+
+    Returns:
+        The integer for the computer's move on the board
+    """
+    global playerLetter
+    if computerAssignedLetter == 'X':
         playerLetter = 'O'
     else:
         playerLetter = 'X'
 
     # Here is our algorithm for our Tic Tac Toe AI:
     # First, check if we can win in the next move
-    for i in range(1, 10):
+    for i in range(1, BOARD_SIZE):
         copy = getBoardCopy(board)
         if isSpaceFree(copy, i):
-            makeMove(copy, computerLetter, i)
-            if isWinner(copy, computerLetter):
+            makeMove(copy, computerAssignedLetter, i)
+            if isWinner(copy, computerAssignedLetter):
                 return i
 
     # Check if the player could win on their next move, and block them.
-    for i in range(1, 10):
+    for i in range(1, BOARD_SIZE):
         copy = getBoardCopy(board)
         if isSpaceFree(copy, i):
             makeMove(copy, playerLetter, i)
@@ -128,9 +163,9 @@ def getComputerMove(board, computerLetter): # TODO: W0621: Redefining name 'comp
                 return i
 
     # Try to take one of the corners, if they are free.
-    move = chooseRandomMoveFromList(board, [1, 3, 7, 9])
-    if move != None: # TODO: Fix it (Hint: Comparisons to singletons like None should always be done with is or is not, never the equality/inequality operators.)
-        return move
+    choosenMove = chooseRandomMoveFromList(board, [1, 3, 7, 9])
+    if choosenMove is not None:
+        return choosenMove
 
     # Try to take the center, if it is free.
     if isSpaceFree(board, 5):
@@ -140,64 +175,97 @@ def getComputerMove(board, computerLetter): # TODO: W0621: Redefining name 'comp
     return chooseRandomMoveFromList(board, [2, 4, 6, 8])
 
 def isBoardFull(board):
-    # Return True if every space on the board has been taken. Otherwise return False.
-    for i in range(1, 10):
+    """ Checks if the board is full.
+    Inputs:
+        board - the board
+
+    Returns: 
+        True if every space on the board has been taken. 
+        Otherwise return False.
+    """
+    for i in range(1, BOARD_SIZE):
         if isSpaceFree(board, i):
             return False
     return True
 
+def isGameTied(board):
+    """ Checks to see if game is tied.
+    Inputs:
+        board - the board
+
+    Returns:
+        True if game is tied.
+        False if game is not tied.
+    """
+    if isBoardFull(board):
+        drawBoard(board)
+        print('The game is a tie!')
+        return True
+    return False
+
+def isPlayerWinner(board, letter):
+    """ Checks to see if the player won or there's a tie.
+    Inputs:
+        board - the board
+        letter - player's letter
+
+    Returns:
+        True ig game is won by player or there's a tie.
+        False if game is not yet won by player.
+    """
+    drawBoard(board)
+    move = getPlayerMove(board)
+    makeMove(board, letter, move)
+
+    if isWinner(board, letter):
+        drawBoard(theBoard)
+        print('Hooray! You have won the game!')
+        return True
+    return False
+
+def isComputerWinner(board, letter):
+    """ Checks to see if the computer wins or there's a tie.
+    Inputs:
+        board - the board
+        letter - computer's letter
+
+    Returns:
+        True ig game is won by computer or there's a tie.
+        False if game is not yet won by computer.
+    """
+    move = getComputerMove(board, letter)
+    makeMove(board, letter, move)
+
+    if isWinner(board, letter):
+        drawBoard(board)
+        print('The computer has beaten you! You lose.')
+        return True
+    return False
+
 
 print('Welcome to Tic Tac Toe!')
 
-# TODO: The following mega code block is a huge hairy monster. Break it down 
-# into smaller methods. Use TODO s and the comment above each section as a guide 
-# for refactoring.
-
+BOARD_SIZE = 10
 while True:
     # Reset the board
-    theBoard = [' '] * 10 # TODO: Refactor the magic number in this line (and all of the occurrences of 10 thare are conceptually the same.)
+    theBoard = [' '] * BOARD_SIZE 
     playerLetter, computerLetter = inputPlayerLetter()
     turn = whoGoesFirst()
     print('The ' + turn + ' will go first.')
-    gameIsPlaying = True # TODO: Study how this variable is used. Does it ring a bell? (which refactoring method?) 
-                         #       See whether you can get rid of this 'flag' variable. If so, remove it.
 
-    while gameIsPlaying: # TODO: Usually (not always), loops (or their content) are good candidates to be extracted into their own function.
-                         #       Use a meaningful name for the function you choose.
+    while True:
+        if isGameTied(theBoard):
+            break
         if turn == 'player':
-            # Player’s turn.
-            drawBoard(theBoard)
-            move = getPlayerMove(theBoard)
-            makeMove(theBoard, playerLetter, move)
-
-            if isWinner(theBoard, playerLetter):
-                drawBoard(theBoard)
-                print('Hooray! You have won the game!')
-                gameIsPlaying = False
-            else:  # TODO: is this 'else' necessary?
-                if isBoardFull(theBoard):
-                    drawBoard(theBoard)
-                    print('The game is a tie!')
-                    break
-                else:  # TODO: Is this 'else' necessary?
-                    turn = 'computer'
-
+            if isPlayerWinner(theBoard, playerLetter):
+                break
+            turn = 'computer'
         else:
             # Computer’s turn.
-            move = getComputerMove(theBoard, computerLetter)
-            makeMove(theBoard, computerLetter, move)
-
-            if isWinner(theBoard, computerLetter):
-                drawBoard(theBoard)
-                print('The computer has beaten you! You lose.')
-                gameIsPlaying = False
-            else:     # TODO: is this 'else' necessary?
-                if isBoardFull(theBoard):
-                    drawBoard(theBoard)
-                    print('The game is a tie!')
-                    break
-                else: # TODO: Is this 'else' necessary?
-                    turn = 'player'
+            if isComputerWinner(theBoard, computerLetter):
+                break
+            turn = 'player'
 
     if not playAgain():
         break
+
